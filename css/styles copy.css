@@ -1,0 +1,198 @@
+/* ---------------------------------------------
+   🎨 Variables de colores (paleta de diseño)
+   Definidas en :root para poder reutilizarlas en todo el CSS.
+   Afecta a cualquier elemento que use la variable correspondiente.
+--------------------------------------------- */
+:root {
+  --bg: #0f1720;      /* Color base de fondo general, normalmente aplicado a <body> */
+  --panel: #0b1220;   /* Fondo principal de contenedores tipo .container */
+  --text: #e6f0ff;    /* Color de texto principal, usado en <body> y textos dentro de paneles */
+  --muted: #9fb0c8;   /* Color atenuado para textos secundarios como el footer */
+  --accent: #00d1a0;  /* Color de acento para botones y enlaces destacados (<.btn>, <.footer__enlace>) */
+}
+
+/* ---------------------------------------------
+   🔄 Reset + comportamiento de caja
+   Se aplica a todos los elementos (*), afecta <body>, contenedores, textos, imágenes, botones, etc.
+--------------------------------------------- */
+* {
+  box-sizing: border-box; /* Incluye padding y border dentro del ancho/alto declarado del elemento */
+  margin: 0;               /* Quita márgenes por defecto del navegador para cualquier elemento */
+  padding: 0;              /* Quita paddings por defecto de todos los elementos */
+}
+
+/* ---------------------------------------------
+   📌 Tamaño base de html y body
+   Afecta a <html> y <body>, que son contenedores principales de toda la página.
+--------------------------------------------- */
+html, body {
+  height: 100%; /* Permite que los hijos directos de <body> (header, main, footer) puedan ocupar 100% de la altura */
+}
+
+/* ---------------------------------------------
+   🧭 Body como contenedor flex vertical
+   Afecta a <body> y por ende organiza <header>, <main> y <footer>
+--------------------------------------------- */
+body {
+  display: flex;             /* Convierte <body> en flex container (hijos: header, main, footer) */
+  flex-direction: column;    /* Los hijos se ordenan verticalmente */
+  min-height: 100vh;         /* Asegura que <body> ocupe al menos toda la ventana */
+  font-family: Arial, sans-serif; /* Fuente por defecto para todos los textos dentro de <body> */
+  background: var(--bg);     /* Aplica el fondo base al <body>, afecta a todo lo visible detrás de contenedores */
+  color: var(--text);        /* Color de texto global, afecta a todos los elementos de texto que no tengan otro color */
+}
+
+/* ---------------------------------------------
+   🔹 HEADER
+   Contenedor directo de <div> (título + logo) y <nav>
+--------------------------------------------- */
+header {
+  background: #1b263b;      /* Color de fondo de <header> */
+  padding: 10px 20px;       /* Espaciado interno dentro de <header>, afecta hijos directos <div> y <nav> */
+  position: sticky;          /* Mantiene <header> fijo en la parte superior al scrollear */
+  top: 0;                   /* Posición pegada al top de la ventana */
+  z-index: 100;             /* Se asegura que <header> quede por encima de otros elementos superpuestos */
+}
+
+/* ---------------------------------------------
+   header > div (fila superior con <h1> y <img>)
+   Afecta solo al <div> hijo directo de <header>
+--------------------------------------------- */
+header > div {
+  display: flex;                  /* Organiza <h1> y <img> en fila */
+  justify-content: space-between; /* Espacio entre extremos: <h1> a la izquierda, <img> a la derecha */
+  align-items: center;            /* Centra verticalmente <h1> y <img> */
+  gap: 12px;                      /* Espacio mínimo entre hijos si hay ajuste */
+  margin-bottom: 10px;            /* Separación con <nav> debajo */
+}
+
+/* ---------------------------------------------
+   header h1
+   Título dentro de header > div
+--------------------------------------------- */
+header h1 {
+  font-size: 2.5rem;    /* Tamaño del texto */
+  color: var(--text);   /* Color coherente con tema global */
+  margin: 0;            /* Se gestiona separación con el div contenedor, no afecta a otros elementos */
+}
+
+/* ---------------------------------------------
+   header img
+   Logo dentro de header > div
+--------------------------------------------- */
+header img {
+  height: 60px;         /* Altura fija, afecta solo al <img> */
+  width: auto;          /* Mantiene proporción natural */
+  display: block;       /* Evita espacio en línea debajo de la imagen */
+}
+
+/* ---------------------------------------------
+   🔹 NAVBAR
+   Barra de navegación dentro de <header>
+--------------------------------------------- */
+.navbar {
+  display: flex;           /* Coloca <a> en fila horizontal */
+  gap: 10px;               /* Separación entre cada <a> hijo */
+  justify-content: center; /* Centra los botones dentro de <navbar> */
+  flex-wrap: wrap;         /* Permite que los botones pasen a la siguiente línea si el espacio es pequeño */
+}
+
+/* navbar a
+   Estilo base de los enlaces dentro de navbar
+--------------------------------------------- */
+.navbar a {
+  text-decoration: none;   /* Quita subrayado de los links */
+  line-height: 1;          /* Ajusta altura de línea */
+  display: inline-block;   /* Permite aplicar padding */
+}
+
+/* ---------------------------------------------
+   🟢 Botones .btn
+   Se puede aplicar a <a> o <button>, afecta directamente al elemento y su contenido
+--------------------------------------------- */
+.btn {
+  background: var(--accent);  /* Fondo llamativo, afecta solo al botón */
+  color: #022;                /* Color de texto dentro del botón */
+  padding: 10px 16px;         /* Espaciado interno, afecta al tamaño visual del botón */
+  border: none;               /* Quita borde por defecto */
+  border-radius: 8px;         /* Bordes redondeados */
+  font-weight: 600;           /* Texto semi-negrita */
+  cursor: pointer;            /* Cursor mano */
+  text-decoration: none;      /* Quita subrayado en <a> */
+  display: inline-block;      /* Permite que el botón respete padding y flow inline */
+  transition: filter 0.18s ease; /* Transición suave en hover */
+}
+
+/* Hover para botones */
+.btn:hover {
+  filter: brightness(0.95); /* Oscurece ligeramente, solo afecta al propio botón */
+}
+
+/* ---------------------------------------------
+   📦 MAIN
+   Contenedor central, padre de .container o .banner
+--------------------------------------------- */
+main {
+  flex: 1;                      /* Ocupa espacio disponible entre header y footer */
+  display: flex;                /* Flex para organizar hijos */
+  flex-direction: column;       /* Apila hijos verticalmente */
+  width: 100%;                  /* Ocupa todo el ancho de <body> */
+  box-sizing: border-box;       /* Padding no aumenta ancho total */
+  padding: 20px;                /* Espacio interno dentro de <main>, afecta hijos */
+}
+
+/* ---------------------------------------------
+   .container
+   Panel central de páginas de retos
+--------------------------------------------- */
+.container {
+  width: 100%;                  /* Ocupa ancho completo de <main> */
+  max-width: 800px;             /* Limita tamaño máximo, afecta contenido interno */
+  margin: 0 auto;               /* Centra horizontalmente */
+  background: var(--panel);     /* Fondo del contenedor, afecta solo al panel */
+  padding: 20px;                /* Espacio interno dentro del contenedor */
+  border-radius: 8px;           /* Bordes redondeados */
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5); /* Sombra para profundidad */
+  text-align: center;           /* Centra textos hijos por defecto */
+  display: flex;                /* Flex vertical para hijos: título, botón, .miConsola */
+  flex-direction: column;       /* Organiza verticalmente */
+  gap: 12px;                    /* Separación entre hijos directos */
+  align-items: center;          /* Centra hijos horizontalmente */
+  height: 100%;                 /* Ocupa todo el alto disponible de <main> */
+}
+
+/* ---------------------------------------------
+   🖥️ .miConsola
+   Consola de los retos, hijo directo de .container
+--------------------------------------------- */
+.miConsola {
+  flex: 1;                      /* Crece para llenar espacio sobrante en container */
+  min-height: 220px;            /* Altura mínima */
+  max-height: 600px;            /* Altura máxima */
+  width: 100%;                  /* Ocupa todo el ancho del contenedor */
+  background: #000;             /* Fondo negro estilo terminal */
+  color: #9fffbd;               /* Texto verde claro */
+  font-family: "Courier New", monospace; /* Fuente monoespaciada */
+  padding: 12px;                /* Espacio interno */
+  border-radius: 6px;           /* Bordes redondeados */
+  overflow: auto;               /* Scroll si el contenido supera altura */
+  margin-top: 8px;              /* Separación respecto al elemento anterior */
+  white-space: pre-wrap;        /* Respeta saltos de línea */
+  text-align: left;             /* Texto alineado a la izquierda */
+  box-sizing: border-box;       /* Padding no aumenta ancho */
+}
+
+/* Clases internas de la consola */
+.log  { color: #9fffbd; }       /* Mensajes normales */
+.warn { color: #ffd76b; }       /* Advertencias */
+.err  { color: #ff8a8a; }       /* Errores */
+
+/* ---------------------------------------------
+   ⚓ FOOTER
+   Hijo directo de <body>
+--------------------------------------------- */
+.footer {
+  background: #1b263b;          /* Fondo del footer */
+  color: var(--muted);          /* Texto atenuado */
+  text-align: center;           /* Centrado del contenido */
+  padding: 12px 16px;
